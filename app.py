@@ -106,9 +106,20 @@ for message in st.session_state["chat_history"]:
 
 # ---- Autoplay Latest Audio (no buttons) ----
 if "last_audio_base64" in st.session_state:
-    autoplay_html = f"""
-    <audio autoplay>
+    # Initialize mute state in session_state
+    if "muted" not in st.session_state:
+        st.session_state["muted"] = False
+
+    # Button to toggle mute/unmute
+    if st.button("Mute" if not st.session_state["muted"] else "Unmute"):
+        st.session_state["muted"] = not st.session_state["muted"]
+
+    # Render audio with muted attribute based on state
+    muted_attr = "muted" if st.session_state["muted"] else ""
+    audio_html = f"""
+    <audio autoplay {muted_attr} controls>
         <source src="data:audio/mp3;base64,{st.session_state['last_audio_base64']}" type="audio/mp3">
+        Your browser does not support the audio element.
     </audio>
     """
-    st.markdown(autoplay_html, unsafe_allow_html=True)
+    st.markdown(audio_html, unsafe_allow_html=True)
