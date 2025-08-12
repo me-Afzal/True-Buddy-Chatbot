@@ -30,5 +30,4 @@ It uses **Together AI's Mistral-7B-Instruct model** for conversational responses
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/true-buddy.git
-cd true-buddy
+git clone https://github.com/me-Afzal/True-Buddy-Chatbot
