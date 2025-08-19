@@ -94,7 +94,7 @@ if user_input:
     st.session_state["chat_history"].append({"role": "user", "content": user_input})
 
     # Limit chat history to last 4 messages for context
-    trimmed_history = st.session_state["chat_history"][-2:]
+    trimmed_history = st.session_state["chat_history"][-4:]
 
     with st.spinner("🤖 Your True-Buddy is thinking..."):
         bot_reply = call_model(trimmed_history)
