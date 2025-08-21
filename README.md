@@ -32,10 +32,11 @@ It uses **Google Gemini API (Gemini 2.0 Flash model)** for conversational respon
 
 ### **📦 Installation**
 
-1. **Clone the repository**  
-   git clone https://github.com/me-Afzal/True-Buddy-Chatbot.git  
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/me-Afzal/True-Buddy-Chatbot.git
    cd True-Buddy-Chatbot
-
+   
 2. **Create and activate a virtual environment (recommended)**  
    python \-m venv venv  
    \# On macOS/Linux  
