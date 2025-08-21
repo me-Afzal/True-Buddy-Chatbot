@@ -1,12 +1,16 @@
-import streamlit as st
-import os
-from gtts import gTTS
+"""Streamlit chatbot app: True-Buddy, An Emotional support Chatbot
+with Gemini + gTTS voice support."""
+
+
 import tempfile
 import base64
 import requests
+import streamlit as st
+from gtts import gTTS
+
 
 # ---- Gemini API config ----
-API_KEY = st.secrets["API_KEY"]  
+API_KEY = st.secrets["API_KEY"]
 API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 headers = {
@@ -15,37 +19,42 @@ headers = {
 }
 
 # ---- System Prompt ----
-SYSTEM_PROMPT = (
-    "You are TrueBuddy — an empathetic, supportive best friend who speaks with kindness, warmth, and encouragement. "
-    "Refer to the user as 'buddy' in a loving way and make them feel safe, valued, and understood. "
-    "Always respond in a short paragraph of about three or five sentences.\n\n"
-    
-    "1️⃣ Greetings (hi, hello, good morning, etc.): Respond with a friendly greeting and ask how their day is going. "
-    "Do not include motivational quotes or movie suggestions.\n\n"
-    
-    "2️⃣ Sad, heartbroken, discouraged, lonely, or hopeless: Comfort them, acknowledge their strength, "
-    "include at least one motivational quote, and suggest 1–2 uplifting movies.\n\n"
-    
-    "3️⃣ Suicidal thoughts: Respond with deep compassion, reassure them, include a powerful quote about life, "
-    "suggest 1–2 uplifting movies, and advise contacting a trusted person or helpline.\n\n"
-    
-    "4️⃣ Happy or excited: Celebrate their joy, optionally include a motivational quote, but do NOT suggest movies.\n\n"
-    
-    "5️⃣ Expressions of love ('I love you'): Reply 'I like you as a friend, buddy', include a friendship quote, "
-    "do NOT suggest movies."
-)
+SYSTEM_PROMPT = """You are TrueBuddy — an empathetic, supportive best friend who
+speaks with kindness, warmth, and encouragement.Refer to the user as 'buddy' in a
+loving way and make them feel safe, valued, and understood.Always respond in a 
+short paragraph of about three or five sentences.
+
+1️⃣ Greetings (hi, hello, good morning, etc.): Respond with a friendly greeting
+and ask how their day is going.Do not include motivational quotes or movie
+suggestions.
+
+2️⃣ Sad, heartbroken, discouraged, lonely, or hopeless: Comfort them, acknowledge
+their strength,include at least one motivational quote, and suggest 1–2
+uplifting movies.
+
+3️⃣ Suicidal thoughts: Respond with deep compassion, reassure them, include a
+powerful quote about life,suggest 1–2 uplifting movies, and advise contacting
+a trusted person or helpline.
+
+4️⃣ Happy or excited: Celebrate their joy, optionally include a motivational
+quote, but do NOT suggest movies.
+
+5️⃣ Expressions of love ('I love you'): Reply 'I like you as a friend, buddy',
+include a friendship quote,do NOT suggest movies."""
+
 
 
 # ---- New API call function for Gemini ----
 def call_model(messages):
-    # Build prompt text by combining system prompt + last messages into one text string
+    """Build prompt text by combining system prompt + last messages
+    into one text string"""
     prompt_text = SYSTEM_PROMPT + "\n\n"
     for msg in messages:
         role = msg["role"]
         content = msg["content"]
         prefix = "User:" if role == "user" else "Assistant:"
         prompt_text += f"{prefix} {content}\n"
-    
+
     # Build Gemini API payload with combined prompt text
     payload = {
         "contents": [
@@ -58,16 +67,17 @@ def call_model(messages):
             }
         ]
     }
-    
-    response = requests.post(API_URL, headers=headers, json=payload)
+
+    response = requests.post(API_URL, headers=headers, json=payload,timeout=30)
     response.raise_for_status()
     result = response.json()
-    
+
     # Extract generated assistant text
     try:
         assistant_reply = result["candidates"][0]["content"]["parts"][0]["text"]
     except (KeyError, IndexError):
-        assistant_reply = "Sorry, I can't help you right now. Something is wrong with my Backend"
+        assistant_reply = """Sorry, I can't help you right now.
+        Something is wrong with my Backend"""
     return assistant_reply
 
 # ---- Streamlit UI ----
@@ -78,8 +88,10 @@ st.markdown(
     <h1 style="text-align:center; color:#FFFFFF; font-family:Segoe UI;">
         💬 True-Buddy
     </h1>
-    <p style="text-align:center; font-size:16px; color:gray; margin-top:-10px; font-family:Segoe UI;">
-        An emotional support friend chatbot that listens, cares, and uplifts your spirit.
+    <p style="text-align:center; font-size:16px; color:gray;
+            margin-top:-10px; font-family:Segoe UI;">
+        An emotional support friend chatbot that listens, cares,
+        and uplifts your spirit.
     </p>
     """,
     unsafe_allow_html=True,
@@ -103,11 +115,11 @@ if user_input:
 
     # Convert reply to speech
     tts = gTTS(bot_reply)
-    temp_audio_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
-    tts.save(temp_audio_file.name)
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_audio_file:
+        tts.save(temp_audio_file.name)
 
-    with open(temp_audio_file.name, "rb") as f:
-        audio_base64 = base64.b64encode(f.read()).decode()
+        with open(temp_audio_file.name, "rb") as f:
+            audio_base64 = base64.b64encode(f.read()).decode()
     st.session_state["last_audio_base64"] = audio_base64
 
 # Display chat messages
@@ -122,7 +134,7 @@ if "last_audio_base64" in st.session_state:
 
     if st.button("Mute" if not st.session_state["muted"] else "Unmute"):
         st.session_state["muted"] = not st.session_state["muted"]
-
+# pylint: disable=invalid-name
     muted_attr = "muted" if st.session_state["muted"] else ""
     audio_html = f"""
     <audio autoplay {muted_attr} controls>
@@ -130,4 +142,5 @@ if "last_audio_base64" in st.session_state:
         Your browser does not support the audio element.
     </audio>
     """
+# pylint: enable=invalid-name
     st.markdown(audio_html, unsafe_allow_html=True)
