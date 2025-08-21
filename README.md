@@ -36,24 +36,34 @@ It uses **Google Gemini API (Gemini 2.0 Flash model)** for conversational respon
    ```bash
    git clone https://github.com/me-Afzal/True-Buddy-Chatbot.git
    cd True-Buddy-Chatbot
-   
-2. **Create and activate a virtual environment (recommended)**  
-   python \-m venv venv  
-   \# On macOS/Linux  
-   source venv/bin/activate  
-   \# On Windows  
-   \# venv\\Scripts\\activate
 
-3. **Install dependencies**  
-   pip install \-r requirements.txt
+2. **Create and activate a virtual environment (recommended)**
+   ```bash
+   python -m venv venv
 
-4. Set up environment variables  
-   Create a file named .env in the root directory of your project (the same directory as app.py and requirements.txt). Add your Google Gemini API key to this file:  
-   GEMINI\_API\_KEY=your\_google\_gemini\_api\_key
+   # On macOS/Linux
+   source venv/bin/activate
 
-   *Replace your\_google\_gemini\_api\_key with your actual API key obtained from Google AI Studio.*  
+   # On Windows
+   venv\Scripts\activate
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+
+4. **Set up environment variables**  
+   Create a file named `secrets.toml` inside the `.streamlit` directory in your project root (create the folder if it doesn’t exist).  
+   Add your Google Gemini API key to this file:  
+
+   ```toml
+   API_KEY = "your_google_gemini_api_key"
+
+
+
 5. **Run the Streamlit app**  
+   ```bash
    streamlit run app.py
+
 
 ## 📑 Documentation
 
