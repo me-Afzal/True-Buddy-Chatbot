@@ -1,10 +1,10 @@
-# ⚙️ CI/CD Pipeline Documentation
+# CI/CD Pipeline Documentation
 
 This document explains the **Continuous Integration (CI)** pipeline for **True-Buddy Chatbot**.
 
 ---
 
-## 🚀 Workflow Overview
+## Workflow Overview
 
 The CI/CD workflow is defined in [`.github/workflows/ci-cd.yml`](../.github/workflows/ci-cd.yml).  
 It runs automatically on every push to the `main` branch.

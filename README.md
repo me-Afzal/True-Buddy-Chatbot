@@ -8,15 +8,15 @@ It uses **Google Gemini API (Gemini 2.0 Flash model)** for conversational respon
 
 ---
 
-## ✨ Features
+##  Features
 
-- 💖 **Empathetic Conversations** — Listens without judgment, provides motivational quotes, and suggests uplifting movies when the user is down.  
-- 🎙 **Text-to-Speech** — Reads responses aloud automatically.  
-- 🤗 **Best Friend Personality** — Calls you "buddy" in a loving, supportive way.  
-- 🎬 **Motivational Movie Suggestions** — Provided only when the user is feeling down.  
-- 🎉 **Celebrates Your Joy** — Responds warmly when you share happy news, optionally with quotes.  
-- 🖥 **Streamlit UI** — Clean, simple, and interactive chat interface.  
-- 🔇 **Mute/Unmute Audio** — Control auto-played audio easily.
+-  **Empathetic Conversations** — Listens without judgment, provides motivational quotes, and suggests uplifting movies when the user is down.  
+-  **Text-to-Speech** — Reads responses aloud automatically.  
+-  **Best Friend Personality** — Calls you "buddy" in a loving, supportive way.  
+-  **Motivational Movie Suggestions** — Provided only when the user is feeling down.  
+-  **Celebrates Your Joy** — Responds warmly when you share happy news, optionally with quotes.  
+-  **Streamlit UI** — Clean, simple, and interactive chat interface.  
+-  **Mute/Unmute Audio** — Control auto-played audio easily.
 
 ---
 
