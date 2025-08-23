@@ -8,6 +8,10 @@ It uses **Google Gemini API (Gemini 2.0 Flash model)** for conversational respon
 
 ---
 
+## Live liknk : https://true-buddy-chatbot.streamlit.app/
+
+---
+
 ##  Features
 
 -  **Empathetic Conversations** — Listens without judgment, provides motivational quotes, and suggests uplifting movies when the user is down.  
