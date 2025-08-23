@@ -8,7 +8,7 @@ It uses **Google Gemini API (Gemini 2.0 Flash model)** for conversational respon
 
 ---
 
-## Live liknk : https://true-buddy-chatbot.streamlit.app/
+### Live link : https://true-buddy-chatbot.streamlit.app/
 
 ---
 
