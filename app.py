@@ -11,7 +11,7 @@ from gtts import gTTS
 
 # ---- Gemini API config ----
 API_KEY = st.secrets["API_KEY"]
-API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
 headers = {
     "Content-Type": "application/json",
